@@ -21,18 +21,567 @@ define('desktop/app', ['exports', 'ember', 'desktop/resolver', 'ember-load-initi
 
   exports['default'] = App;
 });
+define('desktop/components/bs-accordion', ['exports', 'ember-bootstrap/components/bs-accordion'], function (exports, _emberBootstrapComponentsBsAccordion) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsAccordion['default'];
+    }
+  });
+});
+define('desktop/components/bs-accordion/item', ['exports', 'ember-bootstrap/components/bs-accordion/item'], function (exports, _emberBootstrapComponentsBsAccordionItem) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsAccordionItem['default'];
+    }
+  });
+});
+define('desktop/components/bs-alert', ['exports', 'ember-bootstrap/components/bs-alert'], function (exports, _emberBootstrapComponentsBsAlert) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsAlert['default'];
+    }
+  });
+});
+define('desktop/components/bs-button-group', ['exports', 'ember-bootstrap/components/bs-button-group'], function (exports, _emberBootstrapComponentsBsButtonGroup) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsButtonGroup['default'];
+    }
+  });
+});
+define('desktop/components/bs-button-group/button', ['exports', 'ember-bootstrap/components/bs-button-group/button'], function (exports, _emberBootstrapComponentsBsButtonGroupButton) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsButtonGroupButton['default'];
+    }
+  });
+});
+define('desktop/components/bs-button', ['exports', 'ember-bootstrap/components/bs-button'], function (exports, _emberBootstrapComponentsBsButton) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsButton['default'];
+    }
+  });
+});
+define('desktop/components/bs-collapse', ['exports', 'ember-bootstrap/components/bs-collapse'], function (exports, _emberBootstrapComponentsBsCollapse) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsCollapse['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown', ['exports', 'ember-bootstrap/components/bs-dropdown'], function (exports, _emberBootstrapComponentsBsDropdown) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdown['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown/button', ['exports', 'ember-bootstrap/components/bs-dropdown/button'], function (exports, _emberBootstrapComponentsBsDropdownButton) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdownButton['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown/menu', ['exports', 'ember-bootstrap/components/bs-dropdown/menu'], function (exports, _emberBootstrapComponentsBsDropdownMenu) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdownMenu['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown/menu/divider', ['exports', 'ember-bootstrap/components/bs-dropdown/menu/divider'], function (exports, _emberBootstrapComponentsBsDropdownMenuDivider) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdownMenuDivider['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown/menu/item', ['exports', 'ember-bootstrap/components/bs-dropdown/menu/item'], function (exports, _emberBootstrapComponentsBsDropdownMenuItem) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdownMenuItem['default'];
+    }
+  });
+});
+define('desktop/components/bs-dropdown/toggle', ['exports', 'ember-bootstrap/components/bs-dropdown/toggle'], function (exports, _emberBootstrapComponentsBsDropdownToggle) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsDropdownToggle['default'];
+    }
+  });
+});
+define('desktop/components/bs-form', ['exports', 'ember-bootstrap/components/bs-form'], function (exports, _emberBootstrapComponentsBsForm) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsForm['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element', ['exports', 'ember-bootstrap/components/bs-form/element'], function (exports, _emberBootstrapComponentsBsFormElement) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElement['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/control', ['exports', 'ember-bootstrap/components/bs-form/element/control'], function (exports, _emberBootstrapComponentsBsFormElementControl) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementControl['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/control/checkbox', ['exports', 'ember-bootstrap/components/bs-form/element/control/checkbox'], function (exports, _emberBootstrapComponentsBsFormElementControlCheckbox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementControlCheckbox['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/control/input', ['exports', 'ember-bootstrap/components/bs-form/element/control/input'], function (exports, _emberBootstrapComponentsBsFormElementControlInput) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementControlInput['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/control/textarea', ['exports', 'ember-bootstrap/components/bs-form/element/control/textarea'], function (exports, _emberBootstrapComponentsBsFormElementControlTextarea) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementControlTextarea['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/errors', ['exports', 'ember-bootstrap/components/bs-form/element/errors'], function (exports, _emberBootstrapComponentsBsFormElementErrors) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementErrors['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/feedback-icon', ['exports', 'ember-bootstrap/components/bs-form/element/feedback-icon'], function (exports, _emberBootstrapComponentsBsFormElementFeedbackIcon) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementFeedbackIcon['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/label', ['exports', 'ember-bootstrap/components/bs-form/element/label'], function (exports, _emberBootstrapComponentsBsFormElementLabel) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLabel['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/horizontal', ['exports', 'ember-bootstrap/components/bs-form/element/layout/horizontal'], function (exports, _emberBootstrapComponentsBsFormElementLayoutHorizontal) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutHorizontal['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/horizontal/checkbox', ['exports', 'ember-bootstrap/components/bs-form/element/layout/horizontal/checkbox'], function (exports, _emberBootstrapComponentsBsFormElementLayoutHorizontalCheckbox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutHorizontalCheckbox['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/inline', ['exports', 'ember-bootstrap/components/bs-form/element/layout/inline'], function (exports, _emberBootstrapComponentsBsFormElementLayoutInline) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutInline['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/inline/checkbox', ['exports', 'ember-bootstrap/components/bs-form/element/layout/inline/checkbox'], function (exports, _emberBootstrapComponentsBsFormElementLayoutInlineCheckbox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutInlineCheckbox['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/vertical', ['exports', 'ember-bootstrap/components/bs-form/element/layout/vertical'], function (exports, _emberBootstrapComponentsBsFormElementLayoutVertical) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutVertical['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/element/layout/vertical/checkbox', ['exports', 'ember-bootstrap/components/bs-form/element/layout/vertical/checkbox'], function (exports, _emberBootstrapComponentsBsFormElementLayoutVerticalCheckbox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormElementLayoutVerticalCheckbox['default'];
+    }
+  });
+});
+define('desktop/components/bs-form/group', ['exports', 'ember-bootstrap/components/bs-form/group'], function (exports, _emberBootstrapComponentsBsFormGroup) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsFormGroup['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal-simple', ['exports', 'ember-bootstrap/components/bs-modal-simple'], function (exports, _emberBootstrapComponentsBsModalSimple) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalSimple['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal', ['exports', 'ember-bootstrap/components/bs-modal'], function (exports, _emberBootstrapComponentsBsModal) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModal['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/body', ['exports', 'ember-bootstrap/components/bs-modal/body'], function (exports, _emberBootstrapComponentsBsModalBody) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalBody['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/dialog', ['exports', 'ember-bootstrap/components/bs-modal/dialog'], function (exports, _emberBootstrapComponentsBsModalDialog) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalDialog['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/footer', ['exports', 'ember-bootstrap/components/bs-modal/footer'], function (exports, _emberBootstrapComponentsBsModalFooter) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalFooter['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/header', ['exports', 'ember-bootstrap/components/bs-modal/header'], function (exports, _emberBootstrapComponentsBsModalHeader) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalHeader['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/header/close', ['exports', 'ember-bootstrap/components/bs-modal/header/close'], function (exports, _emberBootstrapComponentsBsModalHeaderClose) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalHeaderClose['default'];
+    }
+  });
+});
+define('desktop/components/bs-modal/header/title', ['exports', 'ember-bootstrap/components/bs-modal/header/title'], function (exports, _emberBootstrapComponentsBsModalHeaderTitle) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsModalHeaderTitle['default'];
+    }
+  });
+});
+define('desktop/components/bs-nav', ['exports', 'ember-bootstrap/components/bs-nav'], function (exports, _emberBootstrapComponentsBsNav) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNav['default'];
+    }
+  });
+});
+define('desktop/components/bs-nav/item', ['exports', 'ember-bootstrap/components/bs-nav/item'], function (exports, _emberBootstrapComponentsBsNavItem) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavItem['default'];
+    }
+  });
+});
+define('desktop/components/bs-nav/link-to', ['exports', 'ember-bootstrap/components/bs-nav/link-to'], function (exports, _emberBootstrapComponentsBsNavLinkTo) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavLinkTo['default'];
+    }
+  });
+});
+define('desktop/components/bs-navbar', ['exports', 'ember-bootstrap/components/bs-navbar'], function (exports, _emberBootstrapComponentsBsNavbar) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavbar['default'];
+    }
+  });
+});
+define('desktop/components/bs-navbar/content', ['exports', 'ember-bootstrap/components/bs-navbar/content'], function (exports, _emberBootstrapComponentsBsNavbarContent) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavbarContent['default'];
+    }
+  });
+});
+define('desktop/components/bs-navbar/nav', ['exports', 'ember-bootstrap/components/bs-navbar/nav'], function (exports, _emberBootstrapComponentsBsNavbarNav) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavbarNav['default'];
+    }
+  });
+});
+define('desktop/components/bs-navbar/toggle', ['exports', 'ember-bootstrap/components/bs-navbar/toggle'], function (exports, _emberBootstrapComponentsBsNavbarToggle) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsNavbarToggle['default'];
+    }
+  });
+});
+define('desktop/components/bs-popover', ['exports', 'ember-bootstrap/components/bs-popover'], function (exports, _emberBootstrapComponentsBsPopover) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsPopover['default'];
+    }
+  });
+});
+define('desktop/components/bs-popover/element', ['exports', 'ember-bootstrap/components/bs-popover/element'], function (exports, _emberBootstrapComponentsBsPopoverElement) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsPopoverElement['default'];
+    }
+  });
+});
+define('desktop/components/bs-progress', ['exports', 'ember-bootstrap/components/bs-progress'], function (exports, _emberBootstrapComponentsBsProgress) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsProgress['default'];
+    }
+  });
+});
+define('desktop/components/bs-progress/bar', ['exports', 'ember-bootstrap/components/bs-progress/bar'], function (exports, _emberBootstrapComponentsBsProgressBar) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsProgressBar['default'];
+    }
+  });
+});
+define('desktop/components/bs-tab', ['exports', 'ember-bootstrap/components/bs-tab'], function (exports, _emberBootstrapComponentsBsTab) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsTab['default'];
+    }
+  });
+});
+define('desktop/components/bs-tab/pane', ['exports', 'ember-bootstrap/components/bs-tab/pane'], function (exports, _emberBootstrapComponentsBsTabPane) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsTabPane['default'];
+    }
+  });
+});
+define('desktop/components/bs-tooltip', ['exports', 'ember-bootstrap/components/bs-tooltip'], function (exports, _emberBootstrapComponentsBsTooltip) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsTooltip['default'];
+    }
+  });
+});
+define('desktop/components/bs-tooltip/element', ['exports', 'ember-bootstrap/components/bs-tooltip/element'], function (exports, _emberBootstrapComponentsBsTooltipElement) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapComponentsBsTooltipElement['default'];
+    }
+  });
+});
+define('desktop/components/edit-game', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
+define('desktop/components/ember-wormhole', ['exports', 'ember-wormhole/components/ember-wormhole'], function (exports, _emberWormholeComponentsEmberWormhole) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberWormholeComponentsEmberWormhole['default'];
+    }
+  });
+});
+define('desktop/components/game-detail', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
 define('desktop/components/game-tile', ['exports', 'ember'], function (exports, _ember) {
-    exports['default'] = _ember['default'].Component.extend({
-        isImageShowing: false,
-        actions: {
-            imageShow: function imageShow() {
-                this.set('isImageShowing', true);
-            },
-            imageHide: function imageHide() {
-                this.set('isImageShowing', false);
-            }
-        }
-    });
+  exports['default'] = _ember['default'].Component.extend({
+    isImageShowing: false,
+    actions: {
+      imageShow: function imageShow() {
+        this.set('isImageShowing', true);
+      },
+      imageHide: function imageHide() {
+        this.set('isImageShowing', false);
+      }
+    }
+  });
+});
+define('desktop/components/new-game', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    addNewGame: false,
+    actions: {
+      gameFormShow: function gameFormShow() {
+        this.set('addNewGame', true);
+      },
+      saveGame1: function saveGame1() {
+        var params = {
+          category: this.get('category'),
+          name: this.get('name'),
+          description: this.get('description'),
+          playerCount: this.get('playerCount'),
+          image: this.get('image'),
+          review: [{ author: this.get('author'), note: this.get('note') }],
+          tag: [this.get('tag')]
+        };
+        this.set('addNewGame', false);
+        this.sendAction('saveGame2', params);
+      }
+    }
+  });
+});
+define('desktop/components/select-box', ['exports', 'ember-select-box/components/select-box'], function (exports, _emberSelectBoxComponentsSelectBox) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBox['default'];
+    }
+  });
+});
+define('desktop/components/select-box/api', ['exports', 'ember-select-box/components/select-box/api'], function (exports, _emberSelectBoxComponentsSelectBoxApi) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxApi['default'];
+    }
+  });
+});
+define('desktop/components/select-box/group', ['exports', 'ember-select-box/components/select-box/group'], function (exports, _emberSelectBoxComponentsSelectBoxGroup) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxGroup['default'];
+    }
+  });
+});
+define('desktop/components/select-box/input', ['exports', 'ember-select-box/components/select-box/input'], function (exports, _emberSelectBoxComponentsSelectBoxInput) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxInput['default'];
+    }
+  });
+});
+define('desktop/components/select-box/native', ['exports', 'ember-select-box/components/select-box/native'], function (exports, _emberSelectBoxComponentsSelectBoxNative) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxNative['default'];
+    }
+  });
+});
+define('desktop/components/select-box/native/group', ['exports', 'ember-select-box/components/select-box/native/group'], function (exports, _emberSelectBoxComponentsSelectBoxNativeGroup) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxNativeGroup['default'];
+    }
+  });
+});
+define('desktop/components/select-box/native/option', ['exports', 'ember-select-box/components/select-box/native/option'], function (exports, _emberSelectBoxComponentsSelectBoxNativeOption) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxNativeOption['default'];
+    }
+  });
+});
+define('desktop/components/select-box/option', ['exports', 'ember-select-box/components/select-box/option'], function (exports, _emberSelectBoxComponentsSelectBoxOption) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxOption['default'];
+    }
+  });
+});
+define('desktop/components/select-box/options', ['exports', 'ember-select-box/components/select-box/options'], function (exports, _emberSelectBoxComponentsSelectBoxOptions) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxOptions['default'];
+    }
+  });
+});
+define('desktop/components/select-box/selected-option', ['exports', 'ember-select-box/components/select-box/selected-option'], function (exports, _emberSelectBoxComponentsSelectBoxSelectedOption) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxSelectedOption['default'];
+    }
+  });
+});
+define('desktop/components/select-box/selected-options', ['exports', 'ember-select-box/components/select-box/selected-options'], function (exports, _emberSelectBoxComponentsSelectBoxSelectedOptions) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxSelectedOptions['default'];
+    }
+  });
+});
+define('desktop/components/select-box/selected', ['exports', 'ember-select-box/components/select-box/selected'], function (exports, _emberSelectBoxComponentsSelectBoxSelected) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxComponentsSelectBoxSelected['default'];
+    }
+  });
 });
 define('desktop/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _emberWelcomePageComponentsWelcomePage) {
   Object.defineProperty(exports, 'default', {
@@ -62,8 +611,50 @@ define('desktop/helpers/app-version', ['exports', 'ember', 'desktop/config/envir
 
   exports['default'] = _ember['default'].Helper.helper(appVersion);
 });
+define('desktop/helpers/bs-contains', ['exports', 'ember-bootstrap/helpers/bs-contains'], function (exports, _emberBootstrapHelpersBsContains) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapHelpersBsContains['default'];
+    }
+  });
+  Object.defineProperty(exports, 'bsContains', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapHelpersBsContains.bsContains;
+    }
+  });
+});
+define('desktop/helpers/bs-eq', ['exports', 'ember-bootstrap/helpers/bs-eq'], function (exports, _emberBootstrapHelpersBsEq) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapHelpersBsEq['default'];
+    }
+  });
+  Object.defineProperty(exports, 'eq', {
+    enumerable: true,
+    get: function get() {
+      return _emberBootstrapHelpersBsEq.eq;
+    }
+  });
+});
 define('desktop/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
+});
+define('desktop/helpers/select-box-class', ['exports', 'ember-select-box/helpers/select-box-class'], function (exports, _emberSelectBoxHelpersSelectBoxClass) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxHelpersSelectBoxClass['default'];
+    }
+  });
+  Object.defineProperty(exports, 'selectBoxClass', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxHelpersSelectBoxClass.selectBoxClass;
+    }
+  });
 });
 define('desktop/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
@@ -207,6 +798,18 @@ define('desktop/initializers/injectStore', ['exports', 'ember'], function (expor
     initialize: function initialize() {}
   };
 });
+define('desktop/initializers/load-bootstrap-config', ['exports', 'desktop/config/environment', 'ember-bootstrap/config'], function (exports, _desktopConfigEnvironment, _emberBootstrapConfig) {
+  exports.initialize = initialize;
+
+  function initialize() /* container, application */{
+    _emberBootstrapConfig['default'].load(_desktopConfigEnvironment['default']['ember-bootstrap'] || {});
+  }
+
+  exports['default'] = {
+    name: 'load-bootstrap-config',
+    initialize: initialize
+  };
+});
 define('desktop/initializers/store', ['exports', 'ember'], function (exports, _ember) {
 
   /*
@@ -281,6 +884,14 @@ define('desktop/routes/index', ['exports', 'ember'], function (exports, _ember) 
     exports['default'] = _ember['default'].Route.extend({
         model: function model() {
             return this.store.findAll('game');
+        },
+
+        actions: {
+            saveGame3: function saveGame3(params) {
+                var newGame = this.store.createRecord('game', params);
+                newGame.save();
+                this.transitionTo('index');
+            }
         }
     });
 });
@@ -304,17 +915,42 @@ define("desktop/templates/about", ["exports"], function (exports) {
 define("desktop/templates/application", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "YKi3jboX", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"header\",[]],[\"static-attr\",\"class\",\"jumbotron\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"index\"],null,3],[\"close-element\"],[\"text\",\"\\n    \"],[\"comment\",\" <h3>{{#link-to 'console'}}Console Games{{/link-to}} | {{#link-to 'board'}}Board Games{{/link-to}} | {{#link-to 'card'}}Card Games{{/link-to}}</h3> \"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Search by tags can go here\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n  \"],[\"open-element\",\"footer\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"contact\"],null,2],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"about\"],null,1],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"index\"],null,0],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"Home Page\"]],\"locals\":[]},{\"statements\":[[\"text\",\"About Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Contact Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"The Gaming Blog\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/application.hbs" } });
 });
+define("desktop/templates/components/edit-game", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "L9JV9iwX", "block": "{\"statements\":[[\"yield\",\"default\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/edit-game.hbs" } });
+});
+define("desktop/templates/components/game-detail", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "eIx5SaGU", "block": "{\"statements\":[[\"yield\",\"default\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-detail.hbs" } });
+});
 define("desktop/templates/components/game-tile", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "ym5f5FgC", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"game-panel\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"isImageShowing\"]]],null,2,0],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageShow\"]],[\"flush-element\"],[\"text\",\" Show \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"text\",\" Content\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\" \\\"\"],[\"append\",[\"get\",[\"tag\"]],false],[\"text\",\"\\\" \"]],\"locals\":[\"tag\"]},{\"statements\":[[\"text\",\"        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageHide\"]],[\"flush-element\"],[\"text\",\"Hide Content\"],[\"close-element\"],[\"text\",\" \"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"display-img\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"review\",\"author\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"review\",\"note\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            Tags:\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"tag\"]]],null,1],[\"text\",\" \"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-tile.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "YB52btnw", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"game-panel\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"isImageShowing\"]]],null,3,0],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row exterior\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6 exterior-img\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageShow\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"cold-md-6 exterior-display\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\" \"],[\"open-element\",\"strong\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\" | \"],[\"open-element\",\"em\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\" \\\"\"],[\"append\",[\"get\",[\"tag\"]],false],[\"text\",\"\\\" \"]],\"locals\":[\"tag\"]},{\"statements\":[[\"text\",\"            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"review\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Review: \"],[\"append\",[\"unknown\",[\"review\",\"note\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                By \"],[\"append\",[\"unknown\",[\"review\",\"author\"]],false],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"]],\"locals\":[\"review\"]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"interior-content\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageHide\"]],[\"flush-element\"],[\"text\",\"Hide Content\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"interior-img\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Description: \"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        Players: \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"review\"]]],null,2],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Tags:\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"tag\"]]],null,1],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-tile.hbs" } });
+});
+define("desktop/templates/components/new-game", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "1ujdOv/I", "block": "{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"addNewGame\"]]],null,1,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"gameFormShow\"]],[\"flush-element\"],[\"text\",\"New Game\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"New Game\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"new-game\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"form\",[]],[\"static-attr\",\"class\",\"game-form\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"category\"],[\"flush-element\"],[\"text\",\"Game Category\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"comment\",\" {{#select-box/native as |sb|}}\\n                    {{sb.option value=\\\"video game\\\" label=\\\"Video Game\\\"}}\\n                    {{sb.option value=\\\"card game\\\" label=\\\"Card Game\\\"}}\\n                    {{sb.option value=\\\"board game\\\" label=\\\"Board Game\\\"}}\\n                {{/select-box/native}} \"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"category\"],[\"flush-element\"],[\"text\",\"Category\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"category\"]],\"category\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"tag\"],[\"flush-element\"],[\"text\",\"Add a tag to this game(i.e. strategy)\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"tag\"]],\"tag\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Game Name\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"name\"]],\"name\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"description\"],[\"flush-element\"],[\"text\",\"Game Description\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"description\"]],\"description\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"playerCount\"],[\"flush-element\"],[\"text\",\"How many players can play this game?\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"playerCount\"]],\"playerCount\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Add an image link for this game\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"image\"]],\"image\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Add a review to the game\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"author\"],[\"flush-element\"],[\"text\",\"Name:\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"author\"]],\"author\"]]],false],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"note\"],[\"flush-element\"],[\"text\",\"Review description:\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"note\"]],\"note\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n\\n            \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"saveGame1\"]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/new-game.hbs" } });
 });
 define("desktop/templates/contact", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "E1ut4xBq", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"If you have any comments and questions...\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Dont contact us at\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Chaddurkin@gmail.com\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Derekvillars@gmail.com\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/contact.hbs" } });
 });
 define("desktop/templates/index", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "clBxJyim", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-miniheader\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"This will be a wall with our blog feed, unorganized to start\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"blog-content\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"game-tile\"],null,[[\"game\"],[[\"get\",[\"game\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"game\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "vW1sgLAG", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-miniheader\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"This will be a wall with our blog feed, unorganized to start\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"blog-content\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Add a game the blog\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"new-game\"],null,[[\"saveGame2\"],[\"saveGame3\"]]],false],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"game-tile\"],null,[[\"game\",\"update\"],[[\"get\",[\"game\"]],\"update\"]]],false],[\"text\",\"\\n\"]],\"locals\":[\"game\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
 });
 define('desktop/torii-providers/firebase', ['exports', 'emberfire/torii-providers/firebase'], function (exports, _emberfireToriiProvidersFirebase) {
   exports['default'] = _emberfireToriiProvidersFirebase['default'];
+});
+define('desktop/utils/select-box/class-name', ['exports', 'ember-select-box/utils/select-box/class-name'], function (exports, _emberSelectBoxUtilsSelectBoxClassName) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxUtilsSelectBoxClassName['default'];
+    }
+  });
+});
+define('desktop/utils/select-box/scroll-into-view', ['exports', 'ember-select-box/utils/select-box/scroll-into-view'], function (exports, _emberSelectBoxUtilsSelectBoxScrollIntoView) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberSelectBoxUtilsSelectBoxScrollIntoView['default'];
+    }
+  });
 });
 
 
@@ -338,6 +974,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+977ea09e"});
+  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+abe8e728"});
 }
 //# sourceMappingURL=desktop.map

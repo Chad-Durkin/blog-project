@@ -18,6 +18,24 @@ define('desktop/tests/app.lint-test', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/components/edit-game.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/edit-game.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/edit-game.js should pass ESLint.\n21:1  - Parsing error: Unexpected token } (null)');
+  });
+});
+define('desktop/tests/components/game-detail.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/game-detail.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/game-detail.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/components/game-tile.lint-test', ['exports'], function (exports) {
   'use strict';
 
@@ -25,6 +43,15 @@ define('desktop/tests/components/game-tile.lint-test', ['exports'], function (ex
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/game-tile.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/components/new-game.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/new-game.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/new-game.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/helpers/create-offline-ref', ['exports', 'firebase'], function (exports, _firebase) {
@@ -282,6 +309,82 @@ define('desktop/tests/helpers/unstub-firebase', ['exports', 'firebase'], functio
     }
   }
 });
+define('desktop/tests/integration/components/edit-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('edit-game', 'Integration | Component | edit game', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'O6SxcLdb',
+      'block': '{"statements":[["append",["unknown",["edit-game"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'Kik/gKV/',
+      'block': '{"statements":[["text","\\n"],["block",["edit-game"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/edit-game-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/edit-game-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/edit-game-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/integration/components/game-detail-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('game-detail', 'Integration | Component | game detail', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'muK89bgF',
+      'block': '{"statements":[["append",["unknown",["game-detail"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': '1yVHi2h0',
+      'block': '{"statements":[["text","\\n"],["block",["game-detail"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/game-detail-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/game-detail-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/game-detail-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/integration/components/game-tile-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('game-tile', 'Integration | Component | game tile', {
@@ -318,6 +421,44 @@ define('desktop/tests/integration/components/game-tile-test.lint-test', ['export
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/game-tile-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/integration/components/new-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('new-game', 'Integration | Component | new game', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '/Jrt+Vpx',
+      'block': '{"statements":[["append",["unknown",["new-game"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'T2rfgVMp',
+      'block': '{"statements":[["text","\\n"],["block",["new-game"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/new-game-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/new-game-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/new-game-test.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/models/game.lint-test', ['exports'], function (exports) {

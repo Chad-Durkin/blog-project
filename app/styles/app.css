@@ -1,0 +1,34 @@
+.row {
+    height: 200px;
+    padding: 20px;
+    background-color: grey;
+    border: solid 3px white;
+    color: purple;
+}
+
+.exterior-img {
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.exterior-img img {
+    width: 500px;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.review {
+    border: solid 2px purple;
+    padding-left: 20px;
+    width: 75%;
+}
+
+.interior-content {
+    background-color: lightgrey;
+    padding: 10px;
+    margin: 5px;
+}

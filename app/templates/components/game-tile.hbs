@@ -1,17 +1,29 @@
 <div class="game-panel">
     {{#if isImageShowing}}
-        <li>
-            <button {{action 'imageHide'}}>Hide Content</button> <br>
-            {{game.category}}<br>
-            <img class="display-img" src={{game.image}} alt={{game.name}} /><br>
-            {{game.name}}<br>
-            {{game.description}}<br>
-            {{game.playerCount}}<br>
-            {{game.review.author}}<br>
-            {{game.review.note}}<br>
-            Tags:{{#each game.tag as |tag|}} "{{tag}}" {{/each}} <br>
-        </li>
+    <div class="interior-content">
+        <button {{action 'imageHide'}}>Hide Content</button><br>
+        <h1>{{game.name}}</h1><br>
+        <h2>{{game.category}}</h2><br>
+        <img class="interior-img" src={{game.image}} alt={{game.name}} /><br>
+        <h3>Description: {{game.description}}<br>
+        Players: {{game.playerCount}}</h3><br>
+        {{#each game.review as |review|}}
+            <div class="review">
+                <h4>Review: {{review.note}}<br>
+                By {{review.author}}</h4>
+            </div>
+        {{/each}}<br>
+        <h4>Tags:{{#each game.tag as |tag|}} "{{tag}}" {{/each}}</h4><br>
+    </div>
     {{else}}
-        <button {{action 'imageShow'}}> Show {{game.name}} Content</button>
+    <div class="row exterior">
+        <div class="col-md-6 exterior-img">
+            <img src={{game.image}} alt={{game.name}} {{action 'imageShow'}}/>
+        </div>
+        <div class="cold-md-6 exterior-display">
+            <h1> <strong>{{game.name}}</strong> | <em>{{game.category}}</em></h1>
+            <h2></h2>
+        </div>
+    </div>
     {{/if}}
 </div>

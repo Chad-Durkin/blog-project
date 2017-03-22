@@ -4,7 +4,9 @@
 <div id="blog-content">
     <ul>
         {{#each model as |game|}}
-        {{game-tile game=game}}
+        {{game-tile game=game update="update"}}
         {{/each}}
     </ul>
+    <h1>Add a game the blog</h1>
+    {{new-game saveGame2="saveGame3"}}
 </div>

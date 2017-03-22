@@ -1,0 +1,50 @@
+{{#if addNewGame}}
+    <h1>New Game</h1>
+    <div class="new-game">
+        <form class="game-form">
+            <div class="form-group">
+                <label for="category">Game Category</label>
+                <!-- {{#select-box/native as |sb|}}
+                    {{sb.option value="video game" label="Video Game"}}
+                    {{sb.option value="card game" label="Card Game"}}
+                    {{sb.option value="board game" label="Board Game"}}
+                {{/select-box/native}} -->
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                {{input value=category id="category"}}
+            </div>
+            <div class="form-group">
+                <label for="tag">Add a tag to this game(i.e. strategy)</label>
+                {{input value=tag id="tag"}}
+            </div>
+            <div class="form-group">
+                <label for="name">Game Name</label>
+                {{input value=name id="name"}}
+            </div>
+            <div class="form-group">
+                <label for="description">Game Description</label>
+                {{input value=description id="description"}}
+            </div>
+            <div class="form-group">
+                <label for="playerCount">How many players can play this game?</label>
+                {{input value=playerCount id="playerCount"}}
+            </div>
+            <div class="form-group">
+                <label for="image">Add an image link for this game</label>
+                {{input value=image id="image"}}
+            </div>
+            <div class="form-group">
+                <h2>Add a review to the game</h2>
+                <label for="author">Name:</label>
+                {{input value=author id="author"}}
+                <label for="note">Review description:</label>
+                {{input value=note id="note"}}
+            </div>
+
+            <button {{action 'saveGame1'}}>Save</button>
+        </form>
+    </div>
+{{else}}
+    <button {{action 'gameFormShow'}}>New Game</button>
+{{/if}}
