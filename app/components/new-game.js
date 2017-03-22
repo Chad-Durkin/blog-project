@@ -6,6 +6,7 @@ export default Ember.Component.extend({
     gameFormShow() {
       this.set('addNewGame', true);
     },
+    
     saveGame1() {
       var params = {
         category: this.get('category'),

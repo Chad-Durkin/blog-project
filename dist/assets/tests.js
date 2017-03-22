@@ -24,7 +24,7 @@ define('desktop/tests/components/edit-game.lint-test', ['exports'], function (ex
   QUnit.module('ESLint - components/edit-game.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/edit-game.js should pass ESLint.\n21:1  - Parsing error: Unexpected token } (null)');
+    assert.ok(true, 'components/edit-game.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/components/game-detail.lint-test', ['exports'], function (exports) {
