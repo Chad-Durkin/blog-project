@@ -1,0 +1,17 @@
+<div class="game-panel">
+    {{#if isImageShowing}}
+        <li>
+            <button {{action 'imageHide'}}>Hide Content</button> <br>
+            {{game.category}}<br>
+            <img class="display-img" src={{game.image}} alt={{game.name}} /><br>
+            {{game.name}}<br>
+            {{game.description}}<br>
+            {{game.playerCount}}<br>
+            {{game.review.author}}<br>
+            {{game.review.note}}<br>
+            Tags:{{#each game.tag as |tag|}} "{{tag}}" {{/each}} <br>
+        </li>
+    {{else}}
+        <button {{action 'imageShow'}}> Show {{game.name}} Content</button>
+    {{/if}}
+</div>

@@ -2,6 +2,9 @@
 
 
 
+define('desktop/adapters/application', ['exports', 'emberfire/adapters/firebase'], function (exports, _emberfireAdaptersFirebase) {
+  exports['default'] = _emberfireAdaptersFirebase['default'].extend({});
+});
 define('desktop/app', ['exports', 'ember', 'desktop/resolver', 'ember-load-initializers', 'desktop/config/environment'], function (exports, _ember, _desktopResolver, _emberLoadInitializers, _desktopConfigEnvironment) {
 
   var App = undefined;
@@ -17,6 +20,19 @@ define('desktop/app', ['exports', 'ember', 'desktop/resolver', 'ember-load-initi
   (0, _emberLoadInitializers['default'])(App, _desktopConfigEnvironment['default'].modulePrefix);
 
   exports['default'] = App;
+});
+define('desktop/components/game-tile', ['exports', 'ember'], function (exports, _ember) {
+    exports['default'] = _ember['default'].Component.extend({
+        isImageShowing: false,
+        actions: {
+            imageShow: function imageShow() {
+                this.set('isImageShowing', true);
+            },
+            imageHide: function imageHide() {
+                this.set('isImageShowing', false);
+            }
+        }
+    });
 });
 define('desktop/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _emberWelcomePageComponentsWelcomePage) {
   Object.defineProperty(exports, 'default', {
@@ -126,6 +142,9 @@ define('desktop/initializers/ember-data', ['exports', 'ember-data/setup-containe
     name: 'ember-data',
     initialize: _emberDataSetupContainer['default']
   };
+});
+define('desktop/initializers/emberfire', ['exports', 'emberfire/initializers/emberfire'], function (exports, _emberfireInitializersEmberfire) {
+  exports['default'] = _emberfireInitializersEmberfire['default'];
 });
 define('desktop/initializers/export-application-global', ['exports', 'ember', 'desktop/config/environment'], function (exports, _ember, _desktopConfigEnvironment) {
   exports.initialize = initialize;
@@ -259,7 +278,11 @@ define('desktop/routes/contact', ['exports', 'ember'], function (exports, _ember
   exports['default'] = _ember['default'].Route.extend({});
 });
 define('desktop/routes/index', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Route.extend({});
+    exports['default'] = _ember['default'].Route.extend({
+        model: function model() {
+            return this.store.findAll('game');
+        }
+    });
 });
 define('desktop/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _emberAjaxServicesAjax) {
   Object.defineProperty(exports, 'default', {
@@ -269,17 +292,29 @@ define('desktop/services/ajax', ['exports', 'ember-ajax/services/ajax'], functio
     }
   });
 });
+define('desktop/services/firebase-app', ['exports', 'emberfire/services/firebase-app'], function (exports, _emberfireServicesFirebaseApp) {
+  exports['default'] = _emberfireServicesFirebaseApp['default'];
+});
+define('desktop/services/firebase', ['exports', 'emberfire/services/firebase'], function (exports, _emberfireServicesFirebase) {
+  exports['default'] = _emberfireServicesFirebase['default'];
+});
 define("desktop/templates/about", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "ekruHDoy", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Welcome to a Blog about Gaming\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Authors\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Chad Durkin\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Derek Villars\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Inspiration\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"We do this because we have to.\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/about.hbs" } });
 });
 define("desktop/templates/application", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "YKi3jboX", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"header\",[]],[\"static-attr\",\"class\",\"jumbotron\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"index\"],null,3],[\"close-element\"],[\"text\",\"\\n    \"],[\"comment\",\" <h3>{{#link-to 'console'}}Console Games{{/link-to}} | {{#link-to 'board'}}Board Games{{/link-to}} | {{#link-to 'card'}}Card Games{{/link-to}}</h3> \"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Search by tags can go here\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n  \"],[\"open-element\",\"footer\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"contact\"],null,2],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"about\"],null,1],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"index\"],null,0],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"Home Page\"]],\"locals\":[]},{\"statements\":[[\"text\",\"About Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Contact Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"The Gaming Blog\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/application.hbs" } });
 });
+define("desktop/templates/components/game-tile", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "ym5f5FgC", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"game-panel\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"isImageShowing\"]]],null,2,0],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageShow\"]],[\"flush-element\"],[\"text\",\" Show \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"text\",\" Content\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\" \\\"\"],[\"append\",[\"get\",[\"tag\"]],false],[\"text\",\"\\\" \"]],\"locals\":[\"tag\"]},{\"statements\":[[\"text\",\"        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageHide\"]],[\"flush-element\"],[\"text\",\"Hide Content\"],[\"close-element\"],[\"text\",\" \"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"display-img\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"review\",\"author\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"append\",[\"unknown\",[\"game\",\"review\",\"note\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n            Tags:\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"tag\"]]],null,1],[\"text\",\" \"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-tile.hbs" } });
+});
 define("desktop/templates/contact", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "E1ut4xBq", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"If you have any comments and questions...\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Dont contact us at\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Chaddurkin@gmail.com\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Derekvillars@gmail.com\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/contact.hbs" } });
 });
 define("desktop/templates/index", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "P5HvR+zN", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"This will be a wall with our blog feed, unorganized to start\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"example 1\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"example 2\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"example 3\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "clBxJyim", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-miniheader\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"This will be a wall with our blog feed, unorganized to start\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"blog-content\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"game-tile\"],null,[[\"game\"],[[\"get\",[\"game\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"game\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
+});
+define('desktop/torii-providers/firebase', ['exports', 'emberfire/torii-providers/firebase'], function (exports, _emberfireToriiProvidersFirebase) {
+  exports['default'] = _emberfireToriiProvidersFirebase['default'];
 });
 
 
@@ -303,6 +338,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+e5133960"});
+  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+977ea09e"});
 }
 //# sourceMappingURL=desktop.map
