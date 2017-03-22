@@ -1,7 +1,10 @@
-<h1>This will be a wall with our blog feed, unorganized to start</h1>
-
-<ul>
-    <li>example 1</li>
-    <li>example 2</li>
-    <li>example 3</li>
-</ul>
+<div class="blog-miniheader">
+    <h1>This will be a wall with our blog feed, unorganized to start</h1>
+</div>
+<div id="blog-content">
+    <ul>
+        {{#each model.game as |game|}}
+        {{game-tile game=game}}
+        {{/each}}
+    </ul>
+</div>
