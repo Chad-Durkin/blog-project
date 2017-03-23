@@ -20,6 +20,10 @@ export default Ember.Route.extend({
       });
       game.save();
       this.transitionTo('index');
+    },
+    destroyGame(game) {
+      game.destroyRecord();
+      this.transitionTo('index');
     }
   }
 });

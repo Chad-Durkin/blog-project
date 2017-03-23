@@ -12,6 +12,9 @@ export default Ember.Component.extend({
     update(game, params) {
       console.log("game-tile js, you made it");
       this.sendAction('update', game, params);
+    },
+    destroyGame(game) {
+      this.sendAction('destroyGame', game);
     }
   }
 

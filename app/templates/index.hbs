@@ -4,7 +4,7 @@
 <div id="blog-content">
     <ul>
         {{#each model as |game|}}
-        {{game-tile game=game update="update"}}
+        {{game-tile game=game update="update" destroyGame="destroyGame"}}
         {{/each}}
     </ul>
     <h1>Add a game the blog</h1>

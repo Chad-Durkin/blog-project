@@ -1,7 +1,7 @@
 <div class="game-panel">
     {{#if isImageShowing}}
     <div class="interior-content">
-        <button {{action 'imageHide'}}>Hide Content</button>{{edit-game game=game update="update"}}<br>
+        <button {{action 'imageHide'}}>Hide Content</button>{{edit-game game=game update="update"}}{{game-detail game=game destroyGame='destroyGame'}}<br>
         <h1>{{game.name}}</h1><br>
         <h2>{{game.category}}</h2><br>
         <img class="interior-img" src={{game.image}} alt={{game.name}} /><br>
