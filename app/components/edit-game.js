@@ -15,8 +15,6 @@ export default Ember.Component.extend({
         description: this.get('description'),
         playerCount: this.get('playerCount'),
         image: this.get('image')
-        // review: [{author: this.get('author'), note: this.get('note')}],
-        // tag: [{tag: this.get('tag')}]
       };
       this.set('updateGameForm', false);
       this.sendAction('update', game, params);

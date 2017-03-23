@@ -5,6 +5,5 @@ export default DS.Model.extend({
     description: DS.attr(),
     playerCount: DS.attr(),
     image: DS.attr(),
-    category: DS.belongsTo('category', {async: true}),
-    // tag: DS.belongsTo('tag', {async: true})
+    category: DS.belongsTo('category', {async: true})
 });

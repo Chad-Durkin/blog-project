@@ -3,24 +3,20 @@
     <div class="new-game">
         <form class="game-form">
             <div class="form-group">
-                <label for="tag">Add a tag to this game(i.e. strategy)</label>
-                {{input value=tag id="tag"}}
-            </div>
-            <div class="form-group">
                 <label for="name">Game Name</label>
-                {{input value=name id="name"}}
+                {{input value=name class="name"}}
             </div>
             <div class="form-group">
                 <label for="description">Game Description</label>
-                {{input value=description id="description"}}
+                {{input value=description class="description"}}
             </div>
             <div class="form-group">
                 <label for="playerCount">How many players can play this game?</label>
-                {{input value=playerCount id="playerCount"}}
+                {{input value=playerCount class="playerCount"}}
             </div>
             <div class="form-group">
                 <label for="image">Add an image link for this game</label>
-                {{input value=image id="image"}}
+                {{input value=image class="image"}}
             </div>
             <button {{action 'saveGame'}}>Save</button>
         </form>
