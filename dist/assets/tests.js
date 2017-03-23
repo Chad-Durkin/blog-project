@@ -24,7 +24,7 @@ define('desktop/tests/components/edit-game.lint-test', ['exports'], function (ex
   QUnit.module('ESLint - components/edit-game.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/edit-game.js should pass ESLint.\n');
+    assert.ok(false, 'components/edit-game.js should pass ESLint.\n12:7  - Unexpected console statement. (no-console)\n22:7  - Unexpected console statement. (no-console)');
   });
 });
 define('desktop/tests/components/game-detail.lint-test', ['exports'], function (exports) {
@@ -42,7 +42,7 @@ define('desktop/tests/components/game-tile.lint-test', ['exports'], function (ex
   QUnit.module('ESLint - components/game-tile.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/game-tile.js should pass ESLint.\n');
+    assert.ok(false, 'components/game-tile.js should pass ESLint.\n13:7  - Unexpected console statement. (no-console)');
   });
 });
 define('desktop/tests/components/new-game.lint-test', ['exports'], function (exports) {
@@ -512,7 +512,7 @@ define('desktop/tests/routes/index.lint-test', ['exports'], function (exports) {
   QUnit.module('ESLint - routes/index.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/index.js should pass ESLint.\n');
+    assert.ok(false, 'routes/index.js should pass ESLint.\n15:7  - Unexpected console statement. (no-console)');
   });
 });
 define('desktop/tests/test-helper', ['exports', 'desktop/tests/helpers/resolver', 'ember-qunit'], function (exports, _desktopTestsHelpersResolver, _emberQunit) {

@@ -3,14 +3,15 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   isImageShowing: false,
   actions: {
-    imageShow: function() {
+    imageShow() {
       this.set('isImageShowing', true);
     },
-    imageHide: function() {
+    imageHide() {
       this.set('isImageShowing', false);
     },
-    update: function() {
-      
+    update(game, params) {
+      console.log("game-tile js, you made it");
+      this.sendAction('update', game, params);
     }
   }
 

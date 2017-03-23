@@ -22,7 +22,7 @@
               <label for="image">Update the image link for this game</label>
               {{input value=image id="image" placeholder=game.image}}
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <h2>Change the reviews to the game</h2>
             {{#each game.review as |review|}}
               <label for="author">Name:</label>
@@ -36,9 +36,9 @@
                 <label for="tag">Change the tags(i.e. strategy)</label>
                 {{input value=tag id="tag" placeholder=tag}}
               {{/each}}
-          </div>
+          </div> -->
 
-          <button {{action 'update1' game}}>Save</button>
+          <button {{action 'update' game}}>Save</button>
         </form>
       </div>
     {{else}}
