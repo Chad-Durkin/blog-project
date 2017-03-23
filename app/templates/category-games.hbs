@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-8">
+    <h3>{{model.category.category}}</h3>
     <div class="index-blog-pane">
-      {{#each model.game as |blog|}}
-        {{index-blog-tile blog=blog}}
+      {{#each model.category.games as |game|}}
+        {{index-blog-tile game=game}}
       {{/each}}
     </div>
   </div>

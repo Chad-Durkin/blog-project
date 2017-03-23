@@ -437,6 +437,26 @@ define('desktop/components/bs-tooltip/element', ['exports', 'ember-bootstrap/com
     }
   });
 });
+define('desktop/components/category-tile', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    actions: {
+      saveGame: function saveGame(params) {
+        this.sendAction('saveGame', params);
+      }
+    }
+  });
+});
+define('desktop/components/dash-blog-tile', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    actions: {
+      'delete': function _delete(game) {
+        if (confirm('Are you sure you want to delete this game?')) {
+          this.sendAction('delete', game);
+        }
+      }
+    }
+  });
+});
 define('desktop/components/edit-game', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     updateGameForm: false,
@@ -447,7 +467,6 @@ define('desktop/components/edit-game', ['exports', 'ember'], function (exports, 
       },
 
       update: function update(game) {
-        console.log("first spot");
         var params = {
           category: this.get('category'),
           name: this.get('name'),
@@ -455,9 +474,8 @@ define('desktop/components/edit-game', ['exports', 'ember'], function (exports, 
           playerCount: this.get('playerCount'),
           image: this.get('image')
           // review: [{author: this.get('author'), note: this.get('note')}],
-          // tag: [this.get('tag')]
+          // tag: [{tag: this.get('tag')}]
         };
-        console.log("second spot");
         this.set('updateGameForm', false);
         this.sendAction('update', game, params);
       }
@@ -494,7 +512,6 @@ define('desktop/components/game-tile', ['exports', 'ember'], function (exports, 
         this.set('isImageShowing', false);
       },
       update: function update(game, params) {
-        console.log("game-tile js, you made it");
         this.sendAction('update', game, params);
       },
       destroyGame: function destroyGame(game) {
@@ -504,26 +521,34 @@ define('desktop/components/game-tile', ['exports', 'ember'], function (exports, 
 
   });
 });
+define('desktop/components/index-blog-tile', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
+define('desktop/components/list-category-tile', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({});
+});
 define('desktop/components/new-game', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    addNewGame: false,
+    newGameForm: false,
     actions: {
       gameFormShow: function gameFormShow() {
-        this.set('addNewGame', true);
+        if (this.newGameForm) {
+          this.set('newGameForm', false);
+        } else {
+          this.set('newGameForm', true);
+        }
       },
 
-      saveGame1: function saveGame1() {
+      saveGame: function saveGame() {
         var params = {
           category: this.get('category'),
           name: this.get('name'),
           description: this.get('description'),
           playerCount: this.get('playerCount'),
-          image: this.get('image'),
-          review: [{ author: this.get('author'), note: this.get('note') }],
-          tag: [this.get('tag')]
+          image: this.get('image')
         };
         this.set('addNewGame', false);
-        this.sendAction('saveGame2', params);
+        this.sendAction('saveGame', params);
       }
     }
   });
@@ -887,17 +912,22 @@ define("desktop/instance-initializers/ember-data", ["exports", "ember-data/-priv
     initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
   };
 });
+define('desktop/models/category', ['exports', 'ember-data'], function (exports, _emberData) {
+  exports['default'] = _emberData['default'].Model.extend({
+    category: _emberData['default'].attr(),
+    games: _emberData['default'].hasMany('game', { async: true })
+  });
+});
 define('desktop/models/game', ['exports', 'ember-data'], function (exports, _emberData) {
     exports['default'] = _emberData['default'].Model.extend({
-        category: _emberData['default'].attr(),
-        tag: _emberData['default'].attr(),
         name: _emberData['default'].attr(),
         description: _emberData['default'].attr(),
         playerCount: _emberData['default'].attr(),
         image: _emberData['default'].attr(),
-        review: _emberData['default'].attr()
+        category: _emberData['default'].belongsTo('category', { async: true })
     });
 });
+// tag: DS.belongsTo('tag', {async: true})
 define('desktop/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   exports['default'] = _emberResolver['default'];
 });
@@ -911,6 +941,10 @@ define('desktop/router', ['exports', 'ember', 'desktop/config/environment'], fun
   Router.map(function () {
     this.route('about');
     this.route('contact');
+    this.route('category-games', { path: '/category-games/:category_id' });
+    this.route('game', { path: '/game/:game_id' });
+    this.route('dash');
+    this.route('update', { path: '/update/:game_id' });
   });
 
   exports['default'] = Router;
@@ -918,34 +952,106 @@ define('desktop/router', ['exports', 'ember', 'desktop/config/environment'], fun
 define('desktop/routes/about', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
 });
+define('desktop/routes/category-games', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model(params) {
+      return _ember['default'].RSVP.hash({
+        games: this.store.findAll('game'),
+        categories: this.store.findAll('category'),
+        cateogry: this.store.findRecord('category', params.category_id)
+      });
+    }
+  });
+});
 define('desktop/routes/contact', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
+});
+define('desktop/routes/dash', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model() {
+      return _ember['default'].RSVP.hash({
+        games: this.store.findAll('game'),
+        categories: this.store.findAll('category')
+      });
+    },
+    actions: {
+      saveGame: function saveGame(params) {
+        var newGame = this.store.createRecord('game', params);
+        var category = params.category;
+        category.get('games').addObject(newGame);
+        newGame.save().then(function () {
+          return category.save();
+        });
+        this.transitionTo('dash');
+      },
+
+      'delete': function _delete(game) {
+        // var comment_deletions = article.get('comments').map(function(comment) {
+        //   return comment.destroyRecord();
+        // });
+        // Ember.RSVP.all(comment_deletions).then(function(){
+        // return
+        game.destroyRecord();
+        // });
+        this.transitionTo('dash');
+      }
+    }
+  });
+});
+define('desktop/routes/game', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model(params) {
+      return this.store.findRecord('game', params.game_id);
+    }
+    // actions: {
+    //  saveComment(params) {
+    //    var newComment = this.store.createRecord('comment', params);
+    //    var article = params.article;
+    //    article.get('comments').addObject(newComment);
+    //    newComment.save().then(function(){
+    //      return article.save();
+    //    });
+    //    this.transitionTo('article', article);
+    //  },
+    //  deleteComment(comment, article) {
+    //    comment.destroyRecord();
+    //    this.transitionTo('article', article);
+    //  }
+    // }
+  });
 });
 define('desktop/routes/index', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({
     model: function model() {
-      return this.store.findAll('game');
+      // Ember.RSVP.has(
+      return {
+        games: this.store.findAll('game'),
+        categories: this.store.findAll('category')
+      };
+    }
+  });
+});
+define('desktop/routes/update', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model(params) {
+      return this.store.findRecord('game', params.game_id);
     },
-
     actions: {
-      saveGame3: function saveGame3(params) {
-        var newGame = this.store.createRecord('game', params);
-        newGame.save();
-        this.transitionTo('index');
-      },
-      update: function update(game, params) {
-        console.log("third spot");
+      update: function update(game) {
+        // declare params variable here because not defined through component. comes directly from update route
+        var params = {
+          name: this.get('name'),
+          playerCount: this.get('playerCount'),
+          description: this.get('description'),
+          image: this.get('image')
+        };
         Object.keys(params).forEach(function (key) {
           if (params[key] !== undefined) {
             game.set(key, params[key]);
           }
         });
         game.save();
-        this.transitionTo('index');
-      },
-      destroyGame: function destroyGame(game) {
-        game.destroyRecord();
-        this.transitionTo('index');
+        this.transitionTo('dash');
       }
     }
   });
@@ -968,25 +1074,49 @@ define("desktop/templates/about", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "ekruHDoy", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Welcome to a Blog about Gaming\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Authors\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Chad Durkin\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Derek Villars\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Inspiration\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"We do this because we have to.\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/about.hbs" } });
 });
 define("desktop/templates/application", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "YKi3jboX", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"header\",[]],[\"static-attr\",\"class\",\"jumbotron\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"index\"],null,3],[\"close-element\"],[\"text\",\"\\n    \"],[\"comment\",\" <h3>{{#link-to 'console'}}Console Games{{/link-to}} | {{#link-to 'board'}}Board Games{{/link-to}} | {{#link-to 'card'}}Card Games{{/link-to}}</h3> \"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Search by tags can go here\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n  \"],[\"open-element\",\"footer\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"contact\"],null,2],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"about\"],null,1],[\"text\",\"\\n    \"],[\"block\",[\"link-to\"],[\"index\"],null,0],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"Home Page\"]],\"locals\":[]},{\"statements\":[[\"text\",\"About Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Contact Us\"]],\"locals\":[]},{\"statements\":[[\"text\",\"The Gaming Blog\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/application.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "BFsaNzL+", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"container\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"header\",[]],[\"static-attr\",\"class\",\"jumbotron\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"nav-bar\"],[\"flush-element\"],[\"text\",\"\\n       \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[\"index\"],[[\"class\"],[\"title\"]],3],[\"text\",\"\\n       \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"block\",[\"link-to\"],[\"dash\"],[[\"class\"],[\"navlink\"]],2],[\"text\",\" | \"],[\"block\",[\"link-to\"],[\"about\"],[[\"class\"],[\"navlink\"]],1],[\"text\",\" |\\n      \"],[\"block\",[\"link-to\"],[\"contact\"],[[\"class\"],[\"navlink\"]],0],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\\n  \"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\\n  \"],[\"open-element\",\"footer\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\" Contact\"]],\"locals\":[]},{\"statements\":[[\"text\",\" About\"]],\"locals\":[]},{\"statements\":[[\"text\",\"Dashboard\"]],\"locals\":[]},{\"statements\":[[\"text\",\"         \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Gaming Blog\"],[\"close-element\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/application.hbs" } });
+});
+define("desktop/templates/category-games", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "fJF72j2h", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-8\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"category\",\"category\"]],false],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"index-blog-pane\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"category\",\"games\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-4\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"categories\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"list-category-tile\"],null,[[\"categories\"],[[\"get\",[\"model\",\"categories\"]]]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"index-blog-tile\"],null,[[\"game\"],[[\"get\",[\"game\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"game\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/category-games.hbs" } });
+});
+define("desktop/templates/components/category-tile", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "RJ/qZ+WN", "block": "{\"statements\":[[\"block\",[\"each\"],[[\"get\",[\"categories\"]]],null,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"  \"],[\"append\",[\"helper\",[\"new-game\"],null,[[\"saveGame\",\"category\"],[\"saveGame\",[\"get\",[\"category\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"category\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/category-tile.hbs" } });
+});
+define("desktop/templates/components/dash-blog-tile", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "3WY6TxvK", "block": "{\"statements\":[[\"block\",[\"each\"],[[\"get\",[\"game\"]]],null,1]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"open-element\",\"button\",[]],[\"flush-element\"],[\"text\",\"Update\"],[\"close-element\"]],\"locals\":[]},{\"statements\":[[\"text\",\"  \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"blog\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"delete\",[\"get\",[\"blog\"]]]],[\"flush-element\"],[\"text\",\"Delete\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"block\",[\"link-to\"],[\"update\",[\"get\",[\"blog\",\"id\"]]],null,0],[\"text\",\"\\n\"]],\"locals\":[\"blog\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/dash-blog-tile.hbs" } });
 });
 define("desktop/templates/components/edit-game", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "ggT/CxnP", "block": "{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"updateGameForm\"]]],null,1,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"updateGameForm\"]],[\"flush-element\"],[\"text\",\"Update\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Edit \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"update-game\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"form\",[]],[\"flush-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Game Name\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"name\"]],\"name\",[\"get\",[\"game\",\"name\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"category\"],[\"flush-element\"],[\"text\",\"Category\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"category\"]],\"category\",[\"get\",[\"game\",\"category\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"description\"],[\"flush-element\"],[\"text\",\"Game Description\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"description\"]],\"description\",[\"get\",[\"game\",\"description\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"playerCount\"],[\"flush-element\"],[\"text\",\"How many players can play this game?\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"playerCount\"]],\"playerCount\",[\"get\",[\"game\",\"playerCount\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Update the image link for this game\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"image\"]],\"image\",[\"get\",[\"game\",\"image\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"comment\",\" <div class=\\\"form-group\\\">\\n            <h2>Change the reviews to the game</h2>\\n{{#each game.review as |review|}}\\n              <label for=\\\"author\\\">Name:</label>\\n              {{input value=author id=\\\"author\\\" placeholder=review.author}}\\n              <label for=\\\"note\\\">Review description:</label>\\n              {{input value=note id=\\\"note\\\" placeholder=review.note}}\\n            {{/each}}          </div>\\n          <div class=\\\"form-group\\\">\\n{{#each game.tag as |tag|}}\\n                <label for=\\\"tag\\\">Change the tags(i.e. strategy)</label>\\n                {{input value=tag id=\\\"tag\\\" placeholder=tag}}\\n              {{/each}}          </div> \"],[\"text\",\"\\n\\n          \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"update\",[\"get\",[\"game\"]]]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/edit-game.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "TC4dxNfi", "block": "{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"updateGameForm\"]]],null,1,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"updateGameForm\"]],[\"flush-element\"],[\"text\",\"Update\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Edit \"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"update-game\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"form\",[]],[\"flush-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Game Name\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"name\"]],\"name\",[\"get\",[\"game\",\"name\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"description\"],[\"flush-element\"],[\"text\",\"Game Description\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"description\"]],\"description\",[\"get\",[\"game\",\"description\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"playerCount\"],[\"flush-element\"],[\"text\",\"How many players can play this game?\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"playerCount\"]],\"playerCount\",[\"get\",[\"game\",\"playerCount\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Update the image link for this game\"],[\"close-element\"],[\"text\",\"\\n              \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\",\"placeholder\"],[[\"get\",[\"image\"]],\"image\",[\"get\",[\"game\",\"image\"]]]]],false],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n\\n          \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"update\",[\"get\",[\"game\"]]]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/edit-game.hbs" } });
 });
 define("desktop/templates/components/game-detail", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "JWP+subB", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"delete\",[\"get\",[\"game\"]]]],[\"flush-element\"],[\"text\",\"Delete?\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-detail.hbs" } });
 });
 define("desktop/templates/components/game-tile", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "hfIHJ3/A", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"game-panel\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"isImageShowing\"]]],null,3,0],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row exterior\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6 exterior-img\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageShow\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"cold-md-6 exterior-display\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\" \"],[\"open-element\",\"strong\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\" | \"],[\"open-element\",\"em\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\" \\\"\"],[\"append\",[\"get\",[\"tag\"]],false],[\"text\",\"\\\" \"]],\"locals\":[\"tag\"]},{\"statements\":[[\"text\",\"            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"review\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Review: \"],[\"append\",[\"unknown\",[\"review\",\"note\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                By \"],[\"append\",[\"unknown\",[\"review\",\"author\"]],false],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"]],\"locals\":[\"review\"]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"interior-content\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageHide\"]],[\"flush-element\"],[\"text\",\"Hide Content\"],[\"close-element\"],[\"append\",[\"helper\",[\"edit-game\"],null,[[\"game\",\"update\"],[[\"get\",[\"game\"]],\"update\"]]],false],[\"append\",[\"helper\",[\"game-detail\"],null,[[\"game\",\"destroyGame\"],[[\"get\",[\"game\"]],\"destroyGame\"]]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"interior-img\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Description: \"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        Players: \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"review\"]]],null,2],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Tags:\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"tag\"]]],null,1],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-tile.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "YGtoJSRb", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"game-panel\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"isImageShowing\"]]],null,3,0],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row exterior\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6 exterior-img\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageShow\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"cold-md-6 exterior-display\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\" \"],[\"open-element\",\"strong\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\" | \"],[\"open-element\",\"em\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\" \\\"\"],[\"append\",[\"unknown\",[\"tag\",\"tag\"]],false],[\"text\",\"\\\" \"]],\"locals\":[\"tag\"]},{\"statements\":[[\"text\",\"            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"review\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Review: \"],[\"append\",[\"unknown\",[\"review\",\"note\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n                By \"],[\"append\",[\"unknown\",[\"review\",\"author\"]],false],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n        \"]],\"locals\":[\"review\"]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"interior-content\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"imageHide\"]],[\"flush-element\"],[\"text\",\"Hide Content\"],[\"close-element\"],[\"append\",[\"helper\",[\"edit-game\"],null,[[\"game\",\"update\"],[[\"get\",[\"game\"]],\"update\"]]],false],[\"append\",[\"helper\",[\"game-detail\"],null,[[\"game\",\"destroyGame\"],[[\"get\",[\"game\"]],\"destroyGame\"]]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"category\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"interior-img\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Description: \"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        Players: \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"review\"]]],null,2],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Tags:\"],[\"block\",[\"each\"],[[\"get\",[\"game\",\"tag\"]]],null,1],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/game-tile.hbs" } });
+});
+define("desktop/templates/components/index-blog-tile", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "q8sdqJ3Y", "block": "{\"statements\":[[\"block\",[\"link-to\"],[\"game\",[\"get\",[\"game\",\"id\"]]],null,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-posts row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-5 image-div\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"img\",[]],[\"static-attr\",\"class\",\"home-image\"],[\"dynamic-attr\",\"src\",[\"unknown\",[\"game\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"game\",\"name\"]],null],[\"flush-element\"],[\"close-element\"],[\"text\",\">\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-7\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"h4\",[]],[\"flush-element\"],[\"text\",\"Player Count: \"],[\"append\",[\"unknown\",[\"game\",\"playerCount\"]],false],[\"close-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"game\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/index-blog-tile.hbs" } });
+});
+define("desktop/templates/components/list-category-tile", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "x/cr68a1", "block": "{\"statements\":[[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Categories\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"block\",[\"each\"],[[\"get\",[\"categories\"]]],null,1]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"append\",[\"unknown\",[\"category\",\"category\"]],false]],\"locals\":[]},{\"statements\":[[\"text\",\"  \"],[\"block\",[\"link-to\"],[\"category-games\",[\"get\",[\"category\",\"id\"]]],null,0],[\"text\",\"\\n\"]],\"locals\":[\"category\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/list-category-tile.hbs" } });
 });
 define("desktop/templates/components/new-game", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "3+msEhmw", "block": "{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"addNewGame\"]]],null,1,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"gameFormShow\"]],[\"flush-element\"],[\"text\",\"New Game\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"New Game\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"new-game\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"form\",[]],[\"static-attr\",\"class\",\"game-form\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"category\"],[\"flush-element\"],[\"text\",\"Game Category\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"comment\",\" {{#select-box/native as |sb|}}\\n                    {{sb.option value='video game' label='Video Game'}}\\n                    {{sb.option value='card game' label='Card Game'}}\\n                    {{sb.option value='board game' label='Board Game'}}\\n                {{/select-box/native}} \"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"category\"],[\"flush-element\"],[\"text\",\"Category\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"category\"]],\"category\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"tag\"],[\"flush-element\"],[\"text\",\"Add a tag to this game(i.e. strategy)\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"tag\"]],\"tag\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Game Name\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"name\"]],\"name\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"description\"],[\"flush-element\"],[\"text\",\"Game Description\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"description\"]],\"description\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"playerCount\"],[\"flush-element\"],[\"text\",\"How many players can play this game?\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"playerCount\"]],\"playerCount\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Add an image link for this game\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"image\"]],\"image\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Add a review to the game\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"author\"],[\"flush-element\"],[\"text\",\"Name:\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"author\"]],\"author\"]]],false],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"note\"],[\"flush-element\"],[\"text\",\"Review description:\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"note\"]],\"note\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n\\n            \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"saveGame1\"]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/new-game.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "hxDMMP3T", "block": "{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"newGameForm\"]]],null,1,0]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"gameFormShow\"]],[\"flush-element\"],[\"text\",\"New Game for \"],[\"append\",[\"unknown\",[\"category\",\"category\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"New Game under the \"],[\"append\",[\"unknown\",[\"category\",\"category\"]],false],[\"text\",\" category\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"new-game\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"form\",[]],[\"static-attr\",\"class\",\"game-form\"],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"tag\"],[\"flush-element\"],[\"text\",\"Add a tag to this game(i.e. strategy)\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"tag\"]],\"tag\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Game Name\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"name\"]],\"name\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"description\"],[\"flush-element\"],[\"text\",\"Game Description\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"description\"]],\"description\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"playerCount\"],[\"flush-element\"],[\"text\",\"How many players can play this game?\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"playerCount\"]],\"playerCount\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Add an image link for this game\"],[\"close-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"id\"],[[\"get\",[\"image\"]],\"image\"]]],false],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"saveGame\"]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n        \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/components/new-game.hbs" } });
 });
 define("desktop/templates/contact", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "E1ut4xBq", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"If you have any comments and questions...\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Dont contact us at\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Chaddurkin@gmail.com\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"Derekvillars@gmail.com\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/contact.hbs" } });
 });
+define("desktop/templates/dash", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "L6SLWw3d", "block": "{\"statements\":[[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"text\",\"Dashboard\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Categories\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"category-tile\"],null,[[\"saveGame\",\"categories\"],[\"saveGame\",[\"get\",[\"model\",\"categories\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-6\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Games\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"dash-blog-tile\"],null,[[\"game\",\"category\",\"delete\"],[[\"get\",[\"model\",\"games\"]],[\"get\",[\"model\",\"categories\"]],\"delete\"]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/dash.hbs" } });
+});
+define("desktop/templates/game", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "MTCyCVYV", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"article\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h2\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"text\",\"-\"],[\"append\",[\"unknown\",[\"model\",\"description\"]],false],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Player Count: \"],[\"append\",[\"unknown\",[\"model\",\"playerCount\"]],false],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row article-image\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"unknown\",[\"model\",\"image\"]],null],[\"dynamic-attr\",\"alt\",[\"unknown\",[\"model\",\"title\"]],null],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"hr\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"comment\",\" <div class=\\\"row\\\">\\n    <div class=\\\"col-md-5 comments\\\">\\n{{#each model.comments as |comment|}}\\n      {{comment-tile comment=comment deleteComment='deleteComment' model=model}}\\n      {{/each}}      {{new-comment-tile saveComment=\\\"saveComment\\\" model=model}}\\n    </div>\\n  </div> \"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/game.hbs" } });
+});
 define("desktop/templates/index", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "YpGfKMFN", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"blog-miniheader\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"This will be a wall with our blog feed, unorganized to start\"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"blog-content\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Add a game the blog\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"new-game\"],null,[[\"saveGame2\"],[\"saveGame3\"]]],false],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"game-tile\"],null,[[\"game\",\"update\",\"destroyGame\"],[[\"get\",[\"game\"]],\"update\",\"destroyGame\"]]],false],[\"text\",\"\\n\"]],\"locals\":[\"game\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "Hsxz/SB7", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-8\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"index-blog-pane\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"game\"]]],null,0],[\"text\",\"    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"col-md-4\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"categories\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"list-category-tile\"],null,[[\"categories\"],[[\"get\",[\"model\",\"categories\"]]]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"        \"],[\"append\",[\"helper\",[\"index-blog-tile\"],null,[[\"blog\"],[[\"get\",[\"blog\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"blog\"]}],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/index.hbs" } });
+});
+define("desktop/templates/update", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "thBR15Z9", "block": "{\"statements\":[[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Editing \"],[\"append\",[\"unknown\",[\"model\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"form\",[]],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"name\"],[\"flush-element\"],[\"text\",\"Name\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"class\"],[[\"get\",[\"model\",\"name\"]],\"name form-control\"]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"author\"],[\"flush-element\"],[\"text\",\"Description\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"class\"],[[\"get\",[\"model\",\"description\"]],\"description form-control\"]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"image\"],[\"flush-element\"],[\"text\",\"Image URL\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"class\"],[[\"get\",[\"model\",\"image\"]],\"image form-control\"]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"form-group\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"label\",[]],[\"static-attr\",\"for\",\"date\"],[\"flush-element\"],[\"text\",\"Player Count\"],[\"close-element\"],[\"open-element\",\"br\",[]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"value\",\"class\"],[[\"get\",[\"model\",\"playerCount\"]],\"playerCount form-control\"]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\\n    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"update\",[\"get\",[\"model\"]]]],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "desktop/templates/update.hbs" } });
 });
 define('desktop/torii-providers/firebase', ['exports', 'emberfire/torii-providers/firebase'], function (exports, _emberfireToriiProvidersFirebase) {
   exports['default'] = _emberfireToriiProvidersFirebase['default'];
@@ -1029,6 +1159,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+e175b10f"});
+  require("desktop/app")["default"].create({"name":"desktop","version":"0.0.0+a00f8e29"});
 }
 //# sourceMappingURL=desktop.map

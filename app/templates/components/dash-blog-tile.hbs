@@ -1,0 +1,5 @@
+{{#each game as |blog|}}
+  <p>{{blog.name}}</p>
+  <button {{action 'delete' blog}}>Delete</button>
+  {{#link-to 'update' blog.id}}<button>Update</button>{{/link-to}}
+{{/each}}

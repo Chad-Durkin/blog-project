@@ -1,24 +1,26 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  addNewGame: false,
+  newGameForm: false,
   actions: {
     gameFormShow() {
-      this.set('addNewGame', true);
+      if(this.newGameForm) {
+        this.set('newGameForm', false);
+      } else {
+        this.set('newGameForm', true);
+      }
     },
-    
-    saveGame1() {
+
+    saveGame() {
       var params = {
         category: this.get('category'),
         name: this.get('name'),
         description: this.get('description'),
         playerCount: this.get('playerCount'),
-        image: this.get('image'),
-        review: [{author: this.get('author'), note: this.get('note')}],
-        tag: [this.get('tag')]
+        image: this.get('image')
       };
       this.set('addNewGame', false);
-      this.sendAction('saveGame2', params);
+      this.sendAction('saveGame', params);
     }
   }
 });

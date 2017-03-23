@@ -1,0 +1,5 @@
+<h2>Categories</h2>
+
+{{#each categories as |category|}}
+  {{#link-to 'category-games' category.id}}{{category.category}}{{/link-to}}
+{{/each}}

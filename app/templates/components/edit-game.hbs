@@ -7,10 +7,6 @@
               {{input value=name id="name" placeholder=game.name}}
           </div>
           <div class="form-group">
-              <label for="category">Category</label>
-              {{input value=category id="category" placeholder=game.category}}
-          </div>
-          <div class="form-group">
               <label for="description">Game Description</label>
               {{input value=description id="description" placeholder=game.description}}
           </div>
@@ -22,21 +18,6 @@
               <label for="image">Update the image link for this game</label>
               {{input value=image id="image" placeholder=game.image}}
           </div>
-          <!-- <div class="form-group">
-            <h2>Change the reviews to the game</h2>
-            {{#each game.review as |review|}}
-              <label for="author">Name:</label>
-              {{input value=author id="author" placeholder=review.author}}
-              <label for="note">Review description:</label>
-              {{input value=note id="note" placeholder=review.note}}
-            {{/each}}
-          </div>
-          <div class="form-group">
-              {{#each game.tag as |tag|}}
-                <label for="tag">Change the tags(i.e. strategy)</label>
-                {{input value=tag id="tag" placeholder=tag}}
-              {{/each}}
-          </div> -->
 
           <button {{action 'update' game}}>Save</button>
         </form>

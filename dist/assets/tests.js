@@ -18,13 +18,31 @@ define('desktop/tests/app.lint-test', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/components/category-tile.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/category-tile.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/category-tile.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/components/dash-blog-tile.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/dash-blog-tile.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/dash-blog-tile.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/components/edit-game.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('ESLint - components/edit-game.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/edit-game.js should pass ESLint.\n12:7  - Unexpected console statement. (no-console)\n22:7  - Unexpected console statement. (no-console)');
+    assert.ok(true, 'components/edit-game.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/components/game-detail.lint-test', ['exports'], function (exports) {
@@ -42,7 +60,25 @@ define('desktop/tests/components/game-tile.lint-test', ['exports'], function (ex
   QUnit.module('ESLint - components/game-tile.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/game-tile.js should pass ESLint.\n13:7  - Unexpected console statement. (no-console)');
+    assert.ok(true, 'components/game-tile.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/components/index-blog-tile.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/index-blog-tile.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/index-blog-tile.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/components/list-category-tile.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - components/list-category-tile.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/list-category-tile.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/components/new-game.lint-test', ['exports'], function (exports) {
@@ -309,6 +345,82 @@ define('desktop/tests/helpers/unstub-firebase', ['exports', 'firebase'], functio
     }
   }
 });
+define('desktop/tests/integration/components/category-tile-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('category-tile', 'Integration | Component | category tile', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '8R3IZXYg',
+      'block': '{"statements":[["append",["unknown",["category-tile"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'O8NaC2aD',
+      'block': '{"statements":[["text","\\n"],["block",["category-tile"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/category-tile-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/category-tile-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/category-tile-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/integration/components/dash-blog-tile-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('dash-blog-tile', 'Integration | Component | dash blog tile', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'DXqc32LQ',
+      'block': '{"statements":[["append",["unknown",["dash-blog-tile"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'wopPWhiX',
+      'block': '{"statements":[["text","\\n"],["block",["dash-blog-tile"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/dash-blog-tile-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/dash-blog-tile-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/dash-blog-tile-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/integration/components/edit-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('edit-game', 'Integration | Component | edit game', {
@@ -423,6 +535,82 @@ define('desktop/tests/integration/components/game-tile-test.lint-test', ['export
     assert.ok(true, 'integration/components/game-tile-test.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/integration/components/index-blog-tile-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('index-blog-tile', 'Integration | Component | index blog tile', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'w5HZHeO3',
+      'block': '{"statements":[["append",["unknown",["index-blog-tile"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'LjGAn2RE',
+      'block': '{"statements":[["text","\\n"],["block",["index-blog-tile"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/index-blog-tile-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/index-blog-tile-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/index-blog-tile-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/integration/components/list-category-tile-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('list-category-tile', 'Integration | Component | list category tile', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '90xg6dM+',
+      'block': '{"statements":[["append",["unknown",["list-category-tile"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'wGhgnnKg',
+      'block': '{"statements":[["text","\\n"],["block",["list-category-tile"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('desktop/tests/integration/components/list-category-tile-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - integration/components/list-category-tile-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/list-category-tile-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/integration/components/new-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('new-game', 'Integration | Component | new game', {
@@ -461,6 +649,15 @@ define('desktop/tests/integration/components/new-game-test.lint-test', ['exports
     assert.ok(true, 'integration/components/new-game-test.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/models/category.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - models/category.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/category.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/models/game.lint-test', ['exports'], function (exports) {
   'use strict';
 
@@ -497,6 +694,15 @@ define('desktop/tests/routes/about.lint-test', ['exports'], function (exports) {
     assert.ok(true, 'routes/about.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/routes/category-games.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - routes/category-games.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/category-games.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/routes/contact.lint-test', ['exports'], function (exports) {
   'use strict';
 
@@ -506,13 +712,40 @@ define('desktop/tests/routes/contact.lint-test', ['exports'], function (exports)
     assert.ok(true, 'routes/contact.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/routes/dash.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - routes/dash.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/dash.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/routes/game.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - routes/game.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/game.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/routes/index.lint-test', ['exports'], function (exports) {
   'use strict';
 
   QUnit.module('ESLint - routes/index.js');
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/index.js should pass ESLint.\n15:7  - Unexpected console statement. (no-console)');
+    assert.ok(true, 'routes/index.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/routes/update.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - routes/update.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/update.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/test-helper', ['exports', 'desktop/tests/helpers/resolver', 'ember-qunit'], function (exports, _desktopTestsHelpersResolver, _emberQunit) {
@@ -572,6 +805,28 @@ define('desktop/tests/unit/models/card-game-test.lint-test', ['exports'], functi
     assert.ok(true, 'unit/models/card-game-test.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/unit/models/category-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('category', 'Unit | Model | category', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('desktop/tests/unit/models/category-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/models/category-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/category-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/unit/models/console-game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForModel)('console-game', 'Unit | Model | console game', {
@@ -592,6 +847,50 @@ define('desktop/tests/unit/models/console-game-test.lint-test', ['exports'], fun
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/models/console-game-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/unit/models/review-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('review', 'Unit | Model | review', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('desktop/tests/unit/models/review-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/models/review-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/review-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/unit/models/tag-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('tag', 'Unit | Model | tag', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('desktop/tests/unit/models/tag-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/models/tag-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/tag-test.js should pass ESLint.\n');
   });
 });
 define('desktop/tests/unit/routes/about-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -615,6 +914,27 @@ define('desktop/tests/unit/routes/about-test.lint-test', ['exports'], function (
     assert.ok(true, 'unit/routes/about-test.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/unit/routes/category-games-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:category-games', 'Unit | Route | category games', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('desktop/tests/unit/routes/category-games-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/routes/category-games-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/category-games-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/unit/routes/contact-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:contact', 'Unit | Route | contact', {
@@ -636,6 +956,48 @@ define('desktop/tests/unit/routes/contact-test.lint-test', ['exports'], function
     assert.ok(true, 'unit/routes/contact-test.js should pass ESLint.\n');
   });
 });
+define('desktop/tests/unit/routes/dash-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:dash', 'Unit | Route | dash', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('desktop/tests/unit/routes/dash-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/routes/dash-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/dash-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/unit/routes/game-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:game', 'Unit | Route | game', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('desktop/tests/unit/routes/game-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/routes/game-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/game-test.js should pass ESLint.\n');
+  });
+});
 define('desktop/tests/unit/routes/index-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:index', 'Unit | Route | index', {
@@ -655,6 +1017,27 @@ define('desktop/tests/unit/routes/index-test.lint-test', ['exports'], function (
   QUnit.test('should pass ESLint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/index-test.js should pass ESLint.\n');
+  });
+});
+define('desktop/tests/unit/routes/update-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:update', 'Unit | Route | update', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('desktop/tests/unit/routes/update-test.lint-test', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('ESLint - unit/routes/update-test.js');
+  QUnit.test('should pass ESLint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/update-test.js should pass ESLint.\n');
   });
 });
 require('desktop/tests/test-helper');
